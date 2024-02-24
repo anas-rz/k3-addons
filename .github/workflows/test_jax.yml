@@ -1,0 +1,36 @@
+name: Tests and coverage with JAX Backend
+
+on: [push, pull_request]
+
+env:
+  KERAS_BACKEND: jax
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: ["3.9",]
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Setup utilities
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pytest coverage codecov
+    - name: Install dependencies
+      run: |
+        pip install --upgrade "jax[cpu]"
+        pip3 install -r requirements.txt
+
+    - name: Test with pytest and coverage
+      run: |
+        python -m coverage run --source=. -m pytest
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
