@@ -4,6 +4,10 @@ from k3_addons.api_export import k3_export
 
 @k3_export("k3_addons.layers.ExternalAttention")
 class ExternalAttention(layers.Layer):
+    """
+    Beyond Self-attention: External Attention using Two Linear Layers for Visual Tasks [https://arxiv.org/abs/2105.02358]
+    """
+
     def __init__(self, intermediate_dim=64):
         super().__init__()
         self.intermediate_dim = intermediate_dim

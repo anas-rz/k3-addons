@@ -95,6 +95,10 @@ class BaseAdaptivePool(layers.Layer):
 
 @k3_export(path="k3_addons.layers.AdaptiveMaxPool1D")
 class AdaptiveMaxPool1D(BaseAdaptivePool):
+    """
+    Adaptive Pooling like torch.nn.AdaptiveMaxPool1d
+    """
+
     def __init__(self, output_size, data_format=None, padding="valid", **kwargs):
         super(AdaptiveMaxPool1D, self).__init__(
             output_size,
@@ -108,6 +112,9 @@ class AdaptiveMaxPool1D(BaseAdaptivePool):
 
 @k3_export(path="k3_addons.layers.AdaptiveAveragePool1D")
 class AdaptiveAveragePool1D(BaseAdaptivePool):
+    """ Adaptive Pooling like torch.nn.AdaptiveAvgPool1d
+    
+    """
     def __init__(self, output_size, data_format=None, padding="valid", **kwargs):
         super(AdaptiveAveragePool1D, self).__init__(
             output_size,
@@ -121,6 +128,9 @@ class AdaptiveAveragePool1D(BaseAdaptivePool):
 
 @k3_export(path="k3_addons.layers.AdaptiveMaxPool2D")
 class AdaptiveMaxPool2D(BaseAdaptivePool):
+    """ Adaptive Pooling like torch.nn.AdaptiveMaxPool2d
+    
+    """
     def __init__(self, output_size, data_format=None, padding="valid", **kwargs):
         super(AdaptiveMaxPool2D, self).__init__(
             output_size,
@@ -134,6 +144,9 @@ class AdaptiveMaxPool2D(BaseAdaptivePool):
 
 @k3_export(path="k3_addons.layers.AdaptiveAveragePool2D")
 class AdaptiveAveragePool2D(BaseAdaptivePool):
+    """ Adaptive Pooling like torch.nn.AdaptiveAvgPool2d
+    
+    """
     def __init__(self, output_size, data_format=None, padding="valid", **kwargs):
         super(AdaptiveAveragePool2D, self).__init__(
             output_size,

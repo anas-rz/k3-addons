@@ -59,6 +59,10 @@ class SpatialAttention(layers.Layer):
 
 @k3_export("k3_addons.layers.CBAM")
 class CBAMBlock(layers.Layer):
+    """
+    CBAM: Convolutional Block Attention Module [https://openaccess.thecvf.com/content_ECCV_2018/papers/Sanghyun_Woo_Convolutional_Block_Attention_ECCV_2018_paper.pdf]
+    """
+
     def __init__(self, reduction=16, kernel_size=49):
         super().__init__()
         self.channel_attention = ChannelAttention(reduction=reduction)

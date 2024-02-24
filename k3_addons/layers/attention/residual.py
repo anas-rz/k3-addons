@@ -4,6 +4,8 @@ from k3_addons.api_export import k3_export
 
 @k3_export(path="k3_addons.layers.ResidualAttention")
 class ResidualAttention(layers.Layer):
+    """Residual Attention: A Simple but Effective Method for Multi-Label Recognition [https://arxiv.org/abs/2108.02456]"""
+
     def __init__(self, num_class=1000, alpha=0.2):
         super().__init__()
         self.alpha = alpha

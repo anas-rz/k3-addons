@@ -4,6 +4,8 @@ from k3_addons.api_export import k3_export
 
 @k3_export(path="k3_addons.layers.AFTFull")
 class AFTFull(layers.Layer):
+    """An Attention Free Transformer [https://arxiv.org/pdf/2105.14103v1.pdf]"""
+
     def __init__(self, projection_dim, position_bias=False):
         super(AFTFull, self).__init__()
         self.position_bias = position_bias

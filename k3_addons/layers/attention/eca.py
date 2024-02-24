@@ -5,6 +5,10 @@ from k3_addons.api_export import k3_export
 
 @k3_export("k3_addons.layers.ECAAttention")
 class ECAAttention(layers.Layer):
+    """
+    ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks [https://arxiv.org/pdf/1910.03151.pdf]
+    """
+
     def __init__(self, kernel_size=3):
         super().__init__()
         self.pooling = AdaptiveAveragePool2D(1)
