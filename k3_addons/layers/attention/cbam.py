@@ -6,7 +6,8 @@ from k3_addons.layers.pooling.adaptive_pooling import (
 )
 from k3_addons.api_export import k3_export
 
-@k3_export('k3_addons.layers.ChannelAttention2D')
+
+@k3_export("k3_addons.layers.ChannelAttention2D")
 class ChannelAttention(layers.Layer):
     def __init__(self, reduction=16):
         super().__init__()
@@ -36,11 +37,12 @@ class ChannelAttention(layers.Layer):
         output = ops.sigmoid(max_out + avg_out)
         return output
 
-@k3_export('k3_addons.layers.SpatialAttention2D')
+
+@k3_export("k3_addons.layers.SpatialAttention2D")
 class SpatialAttention(layers.Layer):
     def __init__(self, kernel_size=7):
         super().__init__()
-        self.conv = layers.Conv2D(1, kernel_size=kernel_size, padding='same')
+        self.conv = layers.Conv2D(1, kernel_size=kernel_size, padding="same")
 
     def call(self, x):
         if backend.image_data_format() == "channels_first":
@@ -54,7 +56,8 @@ class SpatialAttention(layers.Layer):
         output = ops.sigmoid(output)
         return output
 
-@k3_export('k3_addons.layers.CBAM')
+
+@k3_export("k3_addons.layers.CBAM")
 class CBAMBlock(layers.Layer):
     def __init__(self, reduction=16, kernel_size=49):
         super().__init__()
