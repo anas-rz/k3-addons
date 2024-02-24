@@ -1,7 +1,9 @@
 from keras import layers, Sequential
 from k3_addons.layers.pooling.adaptive_pooling import AdaptiveAveragePool2D
+from k3_addons.api_export import k3_export
 
 
+@k3_export(path="k3_addons.layers.ParNetAttention")
 class ParNetAttention(layers.Layer):
     def __init__(self, activation="selu"):
         super().__init__()
