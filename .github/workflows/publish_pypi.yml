@@ -1,0 +1,29 @@
+name: Build and Publish to PyPI
+
+on:
+  release:
+    types: [created]  # Trigger on new releases
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # Adjust the version if needed
+
+      - name: Install dependencies
+        run: pip install build twine  
+        run: pip install -r requirements.txt
+        run: pip install tensorflow
+
+      - name: Build the package
+        run: python pip_build.py
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
