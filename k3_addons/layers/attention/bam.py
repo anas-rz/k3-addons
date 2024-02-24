@@ -74,12 +74,14 @@ class SpatialAttention(layers.Layer):
         res = ops.broadcast_to(res, ops.shape(x))
         return res
 
-@k3_export(path='k3_addons.layers.BAMBlock')
+
+@k3_export(path="k3_addons.layers.BAMBlock")
 class BAMBlock(layers.Layer):
     """
     BAM: Bottleneck Attention Module [https://arxiv.org/pdf/1807.06514.pdf]
-    
+
     """
+
     def __init__(self, reduction=16, dilation_rate=2):
         super().__init__()
         self.channel_attention = ChannelAttention(reduction=reduction)
