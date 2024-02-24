@@ -15,9 +15,9 @@ jobs:
           python-version: '3.9'  # Adjust the version if needed
 
       - name: Install dependencies
-        run: pip install build twine  
+        run: pip install build twine tensorflow
+      - name: Install Build Requirements
         run: pip install -r requirements.txt
-        run: pip install tensorflow
 
       - name: Build the package
         run: python pip_build.py
