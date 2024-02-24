@@ -1,5 +1,5 @@
 # k3-addons: Additional multi-backend functionality for Keras 3.
-![Logo](.assets/k3-addons.png)
+![Logo](.assets/k-addons.png)
 
 # Includes:
 - Layers
