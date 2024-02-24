@@ -1,6 +1,10 @@
 # k3-addons: Additional multi-backend functionality for Keras 3.
 ![Logo](.assets/k-addons.png)
 
+# Installation
+
+`pip install k3-addons`
+
 # Includes:
 - Layers
     - Pooling:
