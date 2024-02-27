@@ -3,12 +3,12 @@
 
 # Installation
 
-```
+```bash
 pip install k3-addons
 ```
 
 # Includes:
-## Layers
+- ## Layers
 - ### Pooling:
     - `k3_addons.layers.AdaptiveAveragePooling1D`
     - `k3_addons.layers.AdaptiveMaxPooling1D`
@@ -34,8 +34,7 @@ pip install k3-addons
     - `k3_addons.layers.ParNetAttention`
     - `k3_addons.layers.SimAM`
 
-## Losses
-
+- ## Losses
     - `k3_addons.losses.ContrastiveLoss`
     - `k3_addons.losses.GIoULoss`
     - `k3_addons.losses.PinballLoss`
@@ -44,10 +43,10 @@ pip install k3-addons
     - `k3_addons.losses.pairwise_distance`
     - `k3_addons.losses.pinball_loss`
 
-## Activations
+- ## Activations
 
     -  `k3_addons.activations.hardshrink`
     - `k3_addons.activations.lisht`
-    -  `k3_addons.activations.mish`
+    - `k3_addons.activations.mish`
     - `k3_addons.activations.snake`
     - `k3_addons.activations.tanhshrink`
