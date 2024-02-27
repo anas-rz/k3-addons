@@ -6,8 +6,8 @@ from k3_addons.api_export import k3_export
 class AFTFull(layers.Layer):
     """An Attention Free Transformer [https://arxiv.org/pdf/2105.14103v1.pdf]"""
 
-    def __init__(self, projection_dim, position_bias=False):
-        super(AFTFull, self).__init__()
+    def __init__(self, projection_dim, position_bias=False, **kwargs):
+        super().__init__(**kwargs)
         self.position_bias = position_bias
         self.projection_dim = projection_dim
         self.to_q = layers.Dense(projection_dim)
@@ -36,3 +36,13 @@ class AFTFull(layers.Layer):
         out = numerator / denominator  # n,bs,dim
         out = ops.sigmoid(q) * (ops.transpose(out, (1, 0, 2)))  # bs,n,dim
         return out
+
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "projection_dim": self.projection_dim,
+                "position_bias": self.position_bias,
+            }
+        )
+        return config

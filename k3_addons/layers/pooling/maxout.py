@@ -36,3 +36,13 @@ class Maxout(layers.Layer):
 
         outputs = ops.max(ops.reshape(inputs, expand_shape), axis, keepdims=False)
         return outputs
+
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "num_units": self.num_units,
+                "axis": self.axis,
+            }
+        )
+        return config

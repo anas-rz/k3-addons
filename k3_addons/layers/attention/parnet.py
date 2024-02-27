@@ -5,8 +5,8 @@ from k3_addons.api_export import k3_export
 
 @k3_export(path="k3_addons.layers.ParNetAttention")
 class ParNetAttention(layers.Layer):
-    def __init__(self, activation="selu"):
-        super().__init__()
+    def __init__(self, activation="selu", **kwargs):
+        super().__init__(**kwargs)
         self.activation = activation
 
     def build(self, input_shape):
@@ -35,3 +35,12 @@ class ParNetAttention(layers.Layer):
         x3 = self.sse(x) * x
         out = self.activation(x1 + x2 + x3)
         return out
+
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "activation": self.activation,
+            }
+        )
+        return config

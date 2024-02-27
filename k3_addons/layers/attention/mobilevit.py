@@ -91,8 +91,9 @@ class MobileViTAttention(layers.Layer):
         heads=8,
         head_dim=64,
         mlp_dim=1024,
+        **kwargs,
     ):
-        super().__init__()
+        super().__init__(**kwargs)
         self.ph, self.pw = patch_size, patch_size
         self.dim = dim
         self.kernel_size = kernel_size
@@ -140,3 +141,20 @@ class MobileViTAttention(layers.Layer):
         x = self.conv4(x)
 
         return x
+
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "ph": self.ph,
+                "pw": self.pw,
+                "dim": self.dim,
+                "kernel_size": self.kernel_size,
+                "patch_size": self.patch_size,
+                "depth": self.depth,
+                "heads": self.heads,
+                "head_dim": self.head_dim,
+                "mlp_dim": self.mlp_dim,
+            }
+        )
+        return config

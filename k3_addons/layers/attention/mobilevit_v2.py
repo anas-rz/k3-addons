@@ -4,8 +4,8 @@ from k3_addons.api_export import k3_export
 
 @k3_export(path="k3_addons.layers.MobileViTv2Attention")
 class MobileViTv2Attention(layers.Layer):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def build(self, input_shape):
         projection_dim = input_shape[-1]

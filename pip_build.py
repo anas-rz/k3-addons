@@ -1,20 +1,3 @@
-"""Script to create (and optionally install) a `.whl` archive for Keras 3.
-
-Usage:
-
-1. Create a `.whl` file in `dist/`:
-
-```
-python3 pip_build.py
-```
-
-2. Also install the new package immediately after:
-
-```
-python3 pip_build.py --install
-```
-"""
-
 import argparse
 import datetime
 import glob
@@ -23,8 +6,6 @@ import pathlib
 import shutil
 
 import namex
-
-# Needed because importing torch after TF causes the runtime to crash
 
 package = "k3_addons"
 build_directory = "tmp_build_dir"

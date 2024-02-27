@@ -4,10 +4,10 @@ from k3_addons.api_export import k3_export
 
 @k3_export(path="k3_addons.layers.SimAM")
 class SimAM(layers.Layer):
-    def __init__(self, e_lambda=1e-4, activation="sigmoid"):
-        super().__init__()
+    def __init__(self, e_lambda=1e-4, activation="sigmoid", **kwargs):
+        super().__init__(**kwargs)
         self.e_lambda = e_lambda
-        self.activaton = layers.Activation(activation)
+        self.activation = layers.Activation(activation)
 
     def call(self, x):
         b, h, w, c = ops.shape(x)
@@ -18,4 +18,13 @@ class SimAM(layers.Layer):
         denom = ops.sum(x_minus_mu_square, axis=1, keepdims=True)
         denom = ops.sum(denom, axis=2, keepdims=True) / n
         weights = x_minus_mu_square / (4 * (denom + self.e_lambda)) + 0.5
-        return x * self.activaton(weights)
+        return x * self.activation(weights)
+
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "e_lambda": self.e_lambda,
+            }
+        )
+        return config

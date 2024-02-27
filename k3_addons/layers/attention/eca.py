@@ -9,8 +9,8 @@ class ECAAttention(layers.Layer):
     ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks [https://arxiv.org/pdf/1910.03151.pdf]
     """
 
-    def __init__(self, kernel_size=3):
-        super().__init__()
+    def __init__(self, kernel_size=3, **kwargs):
+        super().__init__(**kwargs)
         self.pooling = AdaptiveAveragePool2D(1)
         self.conv = layers.Conv1D(1, kernel_size=kernel_size, padding="same")
 

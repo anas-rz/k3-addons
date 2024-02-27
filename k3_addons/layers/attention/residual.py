@@ -6,8 +6,8 @@ from k3_addons.api_export import k3_export
 class ResidualAttention(layers.Layer):
     """Residual Attention: A Simple but Effective Method for Multi-Label Recognition [https://arxiv.org/abs/2108.02456]"""
 
-    def __init__(self, num_class=1000, alpha=0.2):
-        super().__init__()
+    def __init__(self, num_class=1000, alpha=0.2, **kwargs):
+        super().__init__(**kwargs)
         self.alpha = alpha
         self.num_class = num_class
         self.fc = layers.Conv2D(
@@ -24,3 +24,13 @@ class ResidualAttention(layers.Layer):
 
         out = x_avg + self.alpha * x_max
         return out
+
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "num_class": self.num_class,
+                "alpha": self.alpha,
+            }
+        )
+        return config

@@ -3,8 +3,8 @@ from k3_addons.layers.pooling.adaptive_pooling import AdaptiveAveragePool2D
 
 
 class SEAttention(layers.Layer):
-    def __init__(self, reduction=16):
-        super().__init__()
+    def __init__(self, reduction=16, **kwargs):
+        super().__init__(**kwargs)
         self.reduction = reduction
 
     def build(self, input_shape):
@@ -28,3 +28,12 @@ class SEAttention(layers.Layer):
         x = ops.expand_dims(x, axis=1)
         x = ops.expand_dims(x, axis=2)
         return x_skip * ops.broadcast_to(x, ops.shape(x_skip))
+
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "reduction": self.reduction,
+            }
+        )
+        return config

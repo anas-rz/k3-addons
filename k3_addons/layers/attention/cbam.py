@@ -9,8 +9,8 @@ from k3_addons.api_export import k3_export
 
 @k3_export("k3_addons.layers.ChannelAttention2D")
 class ChannelAttention(layers.Layer):
-    def __init__(self, reduction=16):
-        super().__init__()
+    def __init__(self, reduction=16, **kwargs):
+        super().__init__(**kwargs)
         self.reduction = reduction
         self.maxpool = AdaptiveMaxPool2D(1)
         self.avgpool = AdaptiveAveragePool2D(1)
@@ -37,11 +37,20 @@ class ChannelAttention(layers.Layer):
         output = ops.sigmoid(max_out + avg_out)
         return output
 
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "reduction": self.reduction,
+            }
+        )
+        return config
+
 
 @k3_export("k3_addons.layers.SpatialAttention2D")
 class SpatialAttention(layers.Layer):
-    def __init__(self, kernel_size=7):
-        super().__init__()
+    def __init__(self, kernel_size=7, **kwargs):
+        super().__init__(**kwargs)
         self.conv = layers.Conv2D(1, kernel_size=kernel_size, padding="same")
 
     def call(self, x):
@@ -63,8 +72,8 @@ class CBAMBlock(layers.Layer):
     CBAM: Convolutional Block Attention Module [https://openaccess.thecvf.com/content_ECCV_2018/papers/Sanghyun_Woo_Convolutional_Block_Attention_ECCV_2018_paper.pdf]
     """
 
-    def __init__(self, reduction=16, kernel_size=49):
-        super().__init__()
+    def __init__(self, reduction=16, kernel_size=49, **kwargs):
+        super().__init__(**kwargs)
         self.channel_attention = ChannelAttention(reduction=reduction)
         self.spatial_attention = SpatialAttention(kernel_size=kernel_size)
 

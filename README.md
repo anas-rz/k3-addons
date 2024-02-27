@@ -1,14 +1,21 @@
 # k3-addons: Additional multi-backend functionality for Keras 3.
 ![Logo](.assets/k-addons.png)
 
+K3 Addons supercharge your multibackend Keras 3 workflow, giving access to various innovative machine learning techniques. While Keras 3 offers a rich set of APIs, not everything can be included in the core APIs due to less generic usage. K3 Addons bridges this gap, ensuring you're not limited by the core Keras 3 library. These add-ons might include various attention mechanisms for Text and Image Data, advanced optimizers, or specialized layers tailored for unique data types. With K3 Addons, you'll gain the flexibility to tackle emerging ML challenges and push the boundaries of what's possible with Keras 3.
+
 # Installation
+To Install K3 Addons simply run following command in your environment:
 
 ```bash
 pip install k3-addons
 ```
 
 # Includes:
+
+Currently includes `layers`, `losses`, and `activations` API.
+
 - ## Layers
+
 - ### Pooling:
     - `k3_addons.layers.AdaptiveAveragePooling1D`
 

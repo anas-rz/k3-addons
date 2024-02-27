@@ -4,8 +4,8 @@ from k3_addons.api_export import k3_export
 
 
 class ChannelAttention(layers.Layer):
-    def __init__(self, reduction=16, num_layers=3):
-        super().__init__()
+    def __init__(self, reduction=16, num_layers=3, **kwargs):
+        super().__init__(**kwargs)
         self.avgpool = AdaptiveAveragePool2D(1)
         self.reduction = reduction
         self.num_layers = num_layers
@@ -36,10 +36,20 @@ class ChannelAttention(layers.Layer):
         res = ops.broadcast_to(res, ops.shape(x))
         return res
 
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "reduction": self.reduction,
+                "num_layers": self.num_layers,
+            }
+        )
+        return config
+
 
 class SpatialAttention(layers.Layer):
-    def __init__(self, reduction=16, num_layers=3, dilation_rate=2):
-        super().__init__()
+    def __init__(self, reduction=16, num_layers=3, dilation_rate=2, **kwargs):
+        super().__init__(**kwargs)
 
         self.reduction = reduction
         self.num_layers = num_layers
@@ -74,6 +84,17 @@ class SpatialAttention(layers.Layer):
         res = ops.broadcast_to(res, ops.shape(x))
         return res
 
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "reduction": self.reduction,
+                "num_layers": self.num_layers,
+                "dilation_rate": self.dilation_rate,
+            }
+        )
+        return config
+
 
 @k3_export(path="k3_addons.layers.BAMBlock")
 class BAMBlock(layers.Layer):
@@ -82,8 +103,8 @@ class BAMBlock(layers.Layer):
 
     """
 
-    def __init__(self, reduction=16, dilation_rate=2):
-        super().__init__()
+    def __init__(self, reduction=16, dilation_rate=2, **kwargs):
+        super().__init__(**kwargs)
         self.channel_attention = ChannelAttention(reduction=reduction)
         self.spatial_attention = SpatialAttention(
             reduction=reduction, dilation_rate=dilation_rate

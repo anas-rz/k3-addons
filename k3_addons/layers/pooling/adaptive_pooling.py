@@ -92,6 +92,19 @@ class BaseAdaptivePool(layers.Layer):
             self.data_format,
         )
 
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "output_size": self.output_size,
+                "pool_dimensions": self.pool_dimensions,
+                "data_format": self.data_format,
+                "padding": self.padding,
+                "pool_mode": self.pool_mode,
+            }
+        )
+        return config
+
 
 @k3_export(path="k3_addons.layers.AdaptiveMaxPool1D")
 class AdaptiveMaxPool1D(BaseAdaptivePool):

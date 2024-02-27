@@ -7,8 +7,8 @@ from k3_addons.api_export import k3_export
 class DoubleAttention(layers.Layer):
     """A2-Nets: Double Attention Networks [https://arxiv.org/pdf/1810.11579.pdf]"""
 
-    def __init__(self, dim, value_dim=None, reconstruct=True):
-        super().__init__()
+    def __init__(self, dim, value_dim=None, reconstruct=True, **kwargs):
+        super().__init__(**kwargs)
         self.dim = dim
         self.value_dim = value_dim or dim
         self.reconstruct = reconstruct
@@ -38,3 +38,14 @@ class DoubleAttention(layers.Layer):
         if self.reconstruct:
             out = self.conv_reconstruct(out)  # b,h,w,c
         return out
+
+    def get_config(self):
+        config = super().get_config()
+        config.update(
+            {
+                "dim": self.dim,
+                "value_dim": self.value_dim,
+                "reconstruct": self.reconstruct,
+            }
+        )
+        return config
