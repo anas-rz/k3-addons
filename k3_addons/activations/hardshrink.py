@@ -1,6 +1,7 @@
 from keras import ops
 from k3_addons.api_export import k3_export
 
+
 @k3_export("k3_addons.activations.hardshrink")
 def hardshrink(x, lower=-0.5, upper=0.5):
     if lower > upper:
