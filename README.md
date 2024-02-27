@@ -60,6 +60,7 @@ pip install k3-addons
     [Separable Self-attention for Mobile Vision Transformers](https://arxiv.org/abs/2206.02680)
 
     - `k3_addons.layers.ParNetAttention`
+
     [Non-deep Networks](https://arxiv.org/abs/2110.07641)
     - `k3_addons.layers.SimAM`
 
