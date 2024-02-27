@@ -1,4 +1,3 @@
-
 from keras.losses import Loss
 from keras import ops, backend
 from k3_addons.api_export import k3_export
@@ -9,10 +8,10 @@ class WeightedKappaLoss(Loss):
     def __init__(
         self,
         num_classes,
-        weightage = "quadratic",
-        name = "cohen_kappa_loss",
-        epsilon = 1e-6,
-        reduction = None,
+        weightage="quadratic",
+        name="cohen_kappa_loss",
+        epsilon=1e-6,
+        reduction=None,
     ):
         super().__init__(name=name, reduction=reduction)
 
