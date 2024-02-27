@@ -39,7 +39,7 @@ setup(
     author_email="memanasraza@gmail.com",
     license="Apache License 2.0",
     install_requires=[
-        "keras>=3.0"
+        "keras>=3.0.5"
     ],
     # Supported Python versions
     python_requires=">=3.9",
