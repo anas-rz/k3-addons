@@ -1,6 +1,7 @@
 from keras import layers, ops
 from k3_addons.api_export import k3_export
 
+
 @k3_export(path="k3_addons.layers.SimAM")
 class SimAM(layers.Layer):
     def __init__(self, e_lambda=1e-4, activation="sigmoid"):
