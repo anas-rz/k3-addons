@@ -3,7 +3,7 @@
 
 # Installation
 
-`pip install k3-addons`
+```pip install k3-addons```
 
 # Includes:
 ## Layers
@@ -12,6 +12,9 @@
     - `k3_addons.layers.AdaptiveMaxPooling1D`
     - `k3_addons.layers.AdaptiveAveragePooling2D`
     - `k3_addons.layers.AdaptiveMaxPooling2D`
+    - `k3_addons.layers.Maxout`
+- Normalization
+    - `k3_addons.layers.InstanceNormalization`
 - Attention:
     - `k3_addons.layers.DoubleAttention`
     - `k3_addons.layers.AFTFull`
@@ -21,3 +24,9 @@
     - `k3_addons.layers.ExternalAttention`
     - `k3_addons.layers.ResidualAttention`
     - `k3_addons.layers.MobileViTAttention`
+    - `k3_addons.layers.BAMBlock`
+    - `k3_addons.layers.CBAM`
+    - `k3_addons.layers.MobileViTAttention`
+    - `k3_addons.layers.MobileViTv2Attention`
+    - `k3_addons.layers.ParNetAttention`
+    - `k3_addons.layers.SimAM`
