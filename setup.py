@@ -37,7 +37,7 @@ setup(
     url="https://github.com/anas-rz/k3-addons",
     author="Muhammad Anas Raza",
     author_email="memanasraza@gmail.com",
-    license="Apache License 2.0",
+    license="MIT License",
     install_requires=[
         "keras>=3.0.5"
     ],
