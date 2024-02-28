@@ -40,7 +40,6 @@ def _test_fbeta_score(actuals, preds, sample_weights, avg, beta_val, result, thr
     if sample_weights is not None:
         sample_weights = ops.convert_to_tensor(sample_weights, "float32")
 
-
     tf_score = _test_tf(avg, beta_val, actuals, preds, sample_weights, threshold)
     np.testing.assert_allclose(tf_score, result, atol=1e-7, rtol=1e-6)
 
@@ -171,6 +170,8 @@ def test_fbeta_weighted_random_score_none(avg_val, beta, sample_weights, result)
 
 
 def test_keras_model():
+    if backend.backend() == "jax":
+        pytest.skip("JAX does not support F1Score with model.fit() yet.")
     fbeta = FBetaScore(5, "micro", 1.0)
     _get_model(fbeta, 5)
 
@@ -192,37 +193,45 @@ def test_eq():
     actuals = ops.convert_to_tensor(actuals, "float32")
     fbeta.update_state(actuals, preds)
     f1.update_state(actuals, preds)
-    np.testing.assert_allclose(ops.convert_to_numpy(fbeta.result()), ops.convert_to_numpy(f1.result()))
+    np.testing.assert_allclose(
+        ops.convert_to_numpy(fbeta.result()), ops.convert_to_numpy(f1.result())
+    )
 
 
 def test_sample_eq():
     f1 = F1Score(3)
     f1_weighted = F1Score(3)
 
-    preds = ops.convert_to_tensor([
-        [0.9, 0.1, 0],
-        [0.2, 0.6, 0.2],
-        [0, 0, 1],
-        [0.4, 0.3, 0.3],
-        [0, 0.9, 0.1],
-        [0, 0, 1],
-    ])
-    actuals = ops.convert_to_tensor([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 0], [1, 0, 0], [0, 0, 1]])
+    preds = ops.convert_to_tensor(
+        [
+            [0.9, 0.1, 0],
+            [0.2, 0.6, 0.2],
+            [0, 0, 1],
+            [0.4, 0.3, 0.3],
+            [0, 0.9, 0.1],
+            [0, 0, 1],
+        ]
+    )
+    actuals = ops.convert_to_tensor(
+        [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 0], [1, 0, 0], [0, 0, 1]]
+    )
     sample_weights = ops.convert_to_tensor([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 
     f1.update_state(actuals, preds)
     f1_weighted(actuals, preds, sample_weights)
-    np.testing.assert_allclose(ops.convert_to_numpy(f1.result()), ops.convert_to_numpy(f1_weighted.result()))
+    np.testing.assert_allclose(
+        ops.convert_to_numpy(f1.result()), ops.convert_to_numpy(f1_weighted.result())
+    )
 
 
 def test_keras_model_f1():
+    if backend.backend() == "jax":
+        pytest.skip("JAX does not support F1Score with model.fit() yet.")
     f1 = F1Score(5)
     _get_model(f1, 5)
 
 
 def test_config_f1():
-
     f1 = F1Score(3)
     config = f1.get_config()
     assert "beta" not in config
-

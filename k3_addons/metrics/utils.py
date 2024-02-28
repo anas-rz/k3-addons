@@ -1,4 +1,5 @@
 import keras
+from keras import ops
 import numpy as np
 
 
@@ -11,6 +12,14 @@ def _get_model(metric, num_output):
         optimizer="adam", loss="categorical_crossentropy", metrics=["acc", metric]
     )
 
-    data = keras.ops.convert_to_tensor(np.random.random((10, 3)))
-    labels = keras.ops.convert_to_tensor(np.random.random((10, num_output)))
+    data = ops.convert_to_tensor(np.random.random((10, 3)))
+    labels = ops.convert_to_tensor(np.random.random((10, num_output)))
     model.fit(data, labels, epochs=1, batch_size=5, verbose=0)
+
+
+def sample_weight_shape_match(v, sample_weight):
+    if sample_weight is None:
+        return ops.ones_like(v)
+    if np.size(sample_weight) == 1:
+        return ops.full(ops.shape(v), sample_weight)
+    return ops.convert_to_tensor(sample_weight)

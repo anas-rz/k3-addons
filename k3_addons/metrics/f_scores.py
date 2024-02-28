@@ -1,5 +1,6 @@
-from keras import ops, metrics
+from keras import ops, metrics, backend
 from k3_addons.api_export import k3_export
+
 
 @k3_export(path="k3_addons.metrics.FBetaScore")
 class FBetaScore(metrics.Metric):
@@ -124,6 +125,7 @@ class FBetaScore(metrics.Metric):
         reset_value = ops.zeros(self.init_shape, dtype=self.dtype)
         for v in self.variables:
             v.assign(reset_value)
+
 
 @k3_export(path="k3_addons.metrics.F1Score")
 class F1Score(FBetaScore):
