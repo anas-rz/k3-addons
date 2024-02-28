@@ -27,6 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements/requirements_test.txt
+        pip install keras --upgrade
 
     - name: Test with pytest and coverage
       run: |
