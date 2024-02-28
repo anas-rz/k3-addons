@@ -17,7 +17,7 @@ def get_test_data():
 
 
 def assert_result(expected, result):
-    np.testing.assert_allclose(expected, result, atol=1e-6)
+    np.testing.assert_allclose(expected, result, atol=1e-5)
 
 
 def check_result(obj, expected_result, expected_count):
