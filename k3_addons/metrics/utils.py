@@ -3,6 +3,30 @@ from keras import ops
 import numpy as np
 
 
+class MeanMetricWrapper(keras.metrics.Mean):
+    def __init__(
+        self,
+        fn,
+        name=None,
+        dtype=None,
+        **kwargs,
+    ):
+        super().__init__(name=name, dtype=dtype)
+        self._fn = fn
+        self._fn_kwargs = kwargs
+
+    def update_state(self, y_true, y_pred, sample_weight=None):
+        y_true = ops.cast(y_true, self._dtype)
+        y_pred = ops.cast(y_pred, self._dtype)
+        matches = self._fn(y_true, y_pred, **self._fn_kwargs)
+        return super().update_state(matches, sample_weight=sample_weight)
+
+    def get_config(self):
+        config = {k: v for k, v in self._fn_kwargs.items()}
+        base_config = super().get_config()
+        return {**base_config, **config}
+
+
 def _get_model(metric, num_output):
     # Test API comptibility with tf.keras Model
     model = keras.Sequential()

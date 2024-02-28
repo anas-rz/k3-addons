@@ -15,7 +15,6 @@ class FBetaScore(metrics.Metric):
         **kwargs,
     ):
         super().__init__(name=name, dtype=dtype)
-
         if average not in (None, "micro", "macro", "weighted"):
             raise ValueError(
                 "Unknown average type. Acceptable values "
