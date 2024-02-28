@@ -1,3 +1,4 @@
+import warnings
 from keras import ops, metrics, backend
 from k3_addons.api_export import k3_export
 
@@ -15,6 +16,10 @@ class FBetaScore(metrics.Metric):
         **kwargs,
     ):
         super().__init__(name=name, dtype=dtype)
+        if backend.backend() == 'jax':
+            warnings.warn(
+                "The `FBetaScore` metric does not supported in `model.fit` with JAX backend."
+            )
         if average not in (None, "micro", "macro", "weighted"):
             raise ValueError(
                 "Unknown average type. Acceptable values "
