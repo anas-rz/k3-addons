@@ -1,6 +1,7 @@
 from keras import ops, metrics
+from k3_addons.api_export import k3_export
 
-
+@k3_export(path="k3_addons.metrics.FBetaScore")
 class FBetaScore(metrics.Metric):
     def __init__(
         self,
@@ -123,3 +124,20 @@ class FBetaScore(metrics.Metric):
         reset_value = ops.zeros(self.init_shape, dtype=self.dtype)
         for v in self.variables:
             v.assign(reset_value)
+
+@k3_export(path="k3_addons.metrics.F1Score")
+class F1Score(FBetaScore):
+    def __init__(
+        self,
+        num_classes,
+        average=None,
+        threshold=None,
+        name="f1_score",
+        dtype=None,
+    ):
+        super().__init__(num_classes, average, 1.0, threshold, name=name, dtype=dtype)
+
+    def get_config(self):
+        base_config = super().get_config()
+        del base_config["beta"]
+        return base_config

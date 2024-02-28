@@ -2,7 +2,7 @@
 
 import pytest
 
-from k3_addons.metrics.f_scores import FBetaScore
+from k3_addons.metrics.f_scores import FBetaScore, F1Score
 from k3_addons.metrics.utils import _get_model
 from keras import ops, backend
 
@@ -167,3 +167,55 @@ def test_fbeta_weighted_random_score_none(avg_val, beta, sample_weights, result)
 def test_keras_model():
     fbeta = FBetaScore(5, "micro", 1.0)
     _get_model(fbeta, 5)
+
+
+def test_eq():
+    f1 = F1Score(3)
+    fbeta = FBetaScore(3, beta=1.0)
+
+    preds = [
+        [0.9, 0.1, 0],
+        [0.2, 0.6, 0.2],
+        [0, 0, 1],
+        [0.4, 0.3, 0.3],
+        [0, 0.9, 0.1],
+        [0, 0, 1],
+    ]
+    actuals = [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 0], [1, 0, 0], [0, 0, 1]]
+    preds = ops.convert_to_tensor(preds, "float32")
+    actuals = ops.convert_to_tensor(actuals, "float32")
+    fbeta.update_state(actuals, preds)
+    f1.update_state(actuals, preds)
+    np.testing.assert_allclose(fbeta.result().numpy(), f1.result().numpy())
+
+
+def test_sample_eq():
+    f1 = F1Score(3)
+    f1_weighted = F1Score(3)
+
+    preds = ops.convert_to_tensor([
+        [0.9, 0.1, 0],
+        [0.2, 0.6, 0.2],
+        [0, 0, 1],
+        [0.4, 0.3, 0.3],
+        [0, 0.9, 0.1],
+        [0, 0, 1],
+    ])
+    actuals = ops.convert_to_tensor([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 0], [1, 0, 0], [0, 0, 1]])
+    sample_weights = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+    f1.update_state(actuals, preds)
+    f1_weighted(actuals, preds, sample_weights)
+    np.testing.assert_allclose(f1.result().numpy(), f1_weighted.result().numpy())
+
+
+def test_keras_model_f1():
+    f1 = F1Score(5)
+    _get_model(f1, 5)
+
+
+def test_config_f1():
+    f1 = F1Score(3)
+    config = f1.get_config()
+    assert "beta" not in config
+
