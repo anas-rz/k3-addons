@@ -26,8 +26,7 @@ jobs:
         python -m pip install pytest coverage codecov
     - name: Install dependencies
       run: |
-        pip install --upgrade "jax[cpu]"
-        pip3 install -r requirements.txt
+        pip3 install -r requirements/requirements_test.txt
 
     - name: Test with pytest and coverage
       run: |

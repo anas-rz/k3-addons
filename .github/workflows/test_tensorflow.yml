@@ -26,8 +26,7 @@ jobs:
         python -m pip install pytest coverage codecov
     - name: Install dependencies
       run: |
-        pip install tensorflow
-        pip install -r requirements.txt
+        pip install -r requirements/requirements_test.txt
 
     - name: Test with pytest and coverage
       run: |

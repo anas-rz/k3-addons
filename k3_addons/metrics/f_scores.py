@@ -16,7 +16,7 @@ class FBetaScore(metrics.Metric):
         **kwargs,
     ):
         super().__init__(name=name, dtype=dtype)
-        if backend.backend() == 'jax':
+        if backend.backend() == "jax":
             warnings.warn(
                 "The `FBetaScore` metric does not supported in `model.fit` with JAX backend."
             )
