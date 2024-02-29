@@ -43,11 +43,9 @@ def _total_variation_compute(score, num_elements, reduction):
     [
         "k3_addons.metrics.total_variation",
         "k3_addons.metrics.functional.total_variation",
+        "k3_addons.metrics.image.total_variation",
     ]
 )
 def total_variation(img, reduction="sum", data_format=None):
     score, num_elements = _total_variation_update(img, data_format=data_format)
-    return _total_variation_compute(
-        score, num_elements, reduction
-    )
-
+    return _total_variation_compute(score, num_elements, reduction)
