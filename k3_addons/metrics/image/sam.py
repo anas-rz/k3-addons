@@ -20,7 +20,7 @@ def _sam_update(preds, target, data_format=None):
             f" Got preds: {ops.shape(preds)} and target: {ops.shape(target)}."
         )
     channel_axis = get_channel_axis(data_format)
-    if (preds.shape[channel_axis] <= 1) or (target.shape[channel_axis] <= 1):
+    if (ops.shape(preds)[channel_axis] <= 1) or (ops.shape(target)[channel_axis] <= 1):
         raise ValueError(
             "Expected channel dimension of `preds` and `target` to be larger than 1."
             f" Got preds: {preds.shape[channel_axis]} and target: {target.shape[channel_axis]}."
@@ -37,7 +37,6 @@ def _sam_compute(
     if data_format is None:
         data_format = backend.image_data_format()
     channel_axis = get_channel_axis(data_format)
-    print(channel_axis)
     dot_product = ops.sum((preds * target), axis=channel_axis)
     preds_norm = ops.norm(preds, axis=channel_axis)
     target_norm = ops.norm(target, axis=channel_axis)
